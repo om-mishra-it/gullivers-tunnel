@@ -1,3 +1,4 @@
+from django.utils.timezone import now
 from django.db import models
 import uuid
 
@@ -21,5 +22,5 @@ class OTP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def is_valid(self):
-        from datetime import timedelta, timezone
-        return self.created_at >= timezone.now() - timedelta(minutes=5)
+        from datetime import timedelta
+        return self.created_at >= now() - timedelta(minutes=5)
