@@ -2,7 +2,7 @@ import random
 
 from django.contrib.auth import login
 from django.shortcuts import get_object_or_404
-from django.utils.timezone import now
+from rest_framework.authtoken.models import Token
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -64,7 +64,16 @@ class UserViewSet(viewsets.ModelViewSet):
         user.is_verified = True
         user.save()
 
+        if not isinstance(user, User):
+            return Response({"error": "Invalid user instance"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         # Delete used OTP
         otp_entry.delete()
 
-        return Response({"message": "OTP verified successfully"}, status=status.HTTP_200_OK)
+        # Generate authentication token
+        token, created = Token.objects.get_or_create(user=user)
+
+        # Login the user
+        login(request, user)
+
+        return Response({"message": "OTP verified successfully", "token": token.key}, status=status.HTTP_200_OK)
