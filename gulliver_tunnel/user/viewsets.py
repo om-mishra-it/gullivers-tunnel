@@ -1,13 +1,14 @@
 import random
 
 from django.contrib.auth import login
+from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
-from user.models import User
-from user.serializers import UserSerializer
+from .models import User, OTP
+from .serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -24,13 +25,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
         user, created = User.objects.get_or_create(email=email)
 
-        otp = str(random.randint(100000, 999999))
-        user.otp = otp
-        user.otp_created_at = now()
-        user.save()
+        # Generate OTP
+        otp_code = str(random.randint(100000, 999999))
+
+        # Store OTP in the OTP model
+        OTP.objects.create(user=user, otp_code=otp_code)
 
         # TODO: Integrate actual email/SMS sending service here
-        print(f"OTP for {email}: {otp}")
+        print(f"OTP for {email}: {otp_code}")
 
         return Response({"message": "OTP sent successfully"}, status=status.HTTP_200_OK)
 
@@ -43,24 +45,26 @@ class UserViewSet(viewsets.ModelViewSet):
         if not email or not otp:
             return Response({"error": "Email and OTP are required"}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        user = get_object_or_404(User, email=email)
 
-        # Check OTP expiry (valid for 5 minutes)
-        if user.otp != otp:
+        # Retrieve latest OTP entry for the user
+        otp_entry = OTP.objects.filter(user=user).order_by("-created_at").first()
+
+        if not otp_entry:
+            return Response({"error": "No OTP found"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check OTP validity
+        if otp_entry.otp_code != otp:
             return Response({"error": "Invalid OTP"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if user.otp_created_at and (now() - user.otp_created_at).seconds > 300:
+        if not otp_entry.is_valid():
             return Response({"error": "OTP expired"}, status=status.HTTP_400_BAD_REQUEST)
 
         # OTP verification success
         user.is_verified = True
-        user.otp = None
-        user.otp_created_at = None
         user.save()
 
-        login(request, user)
+        # Delete used OTP
+        otp_entry.delete()
 
         return Response({"message": "OTP verified successfully"}, status=status.HTTP_200_OK)
