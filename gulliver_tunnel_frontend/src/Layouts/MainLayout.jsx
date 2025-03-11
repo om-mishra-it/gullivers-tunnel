@@ -5,7 +5,7 @@ export default function MainLayout() {
     console.log("🚀 ~ MainLayout ~ hasToken:", hasToken)
     if(hasToken) {
         return (
-            <main className='flex flex-col items-center justify-center min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8'>
+            <main className='flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 sm:px-6'>
                 <Outlet />
             </main>
         )
