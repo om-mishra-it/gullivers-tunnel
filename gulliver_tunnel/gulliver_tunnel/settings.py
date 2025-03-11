@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     "rest_framework.authtoken",
+    "corsheaders",
     'shortener',
     'user'
 ]
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "gulliver_tunnel.urls"
@@ -107,6 +109,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://*"
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
