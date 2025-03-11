@@ -1,5 +1,6 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, status
+from django.shortcuts import get_object_or_404, redirect
+from django.utils.timezone import now
+from rest_framework import views, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -52,3 +53,12 @@ class ShortenedURLViewSet(viewsets.ViewSet):
         return Response({"error": "Unsupported method"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+class RedirectView(views.APIView):
+    def get(self, request, short_code):
+        url_entry = get_object_or_404(ShortenedURL, short_code=short_code)
+
+        # Check if the link is expired
+        if url_entry.expires_at and url_entry.expires_at < now():
+            return Response({"error": "This shortened URL has expired."}, status=status.HTTP_410_GONE)
+
+        return redirect(url_entry.original_url)
