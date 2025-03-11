@@ -1,6 +1,6 @@
 import random
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 from rest_framework import viewsets, status
@@ -77,3 +77,12 @@ class UserViewSet(viewsets.ModelViewSet):
         login(request, user)
 
         return Response({"message": "OTP verified successfully", "token": token.key}, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["POST"])
+    def logout(self, request):
+        """Logs out the user by deleting their authentication token."""
+        if request.user.is_authenticated:
+            Token.objects.filter(user=request.user).delete()  # Delete the token
+            logout(request)  # Django logout (optional, clears session)
+            return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
+        return Response({"error": "User not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)

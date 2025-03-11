@@ -54,6 +54,9 @@ class ShortenedURLViewSet(viewsets.ViewSet):
 
 
 class RedirectView(views.APIView):
+    authentication_classes = []
+    permission_classes = []
+
     def get(self, request, short_code):
         url_entry = get_object_or_404(ShortenedURL, short_code=short_code)
 
