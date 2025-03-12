@@ -46,7 +46,7 @@ class ShortenedURLViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         """Delete a shortened URL."""
-        short_code = request.data.get("short_code")
+        short_code = kwargs.get("pk")
         url_entry = get_object_or_404(ShortenedURL, short_code=short_code, user=request.user)
         url_entry.delete()
         return Response({"message": "Shortened URL deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
