@@ -42,6 +42,7 @@ export default function Home() {
       headers: { Authorization: `Token ${token}` },
     });
     setShortenedUrls(shortenedUrls.filter((url) => url.id !== id));
+    fetchUrls();
   } catch (error) {
     console.error("Error deleting URL:", error);
   }
