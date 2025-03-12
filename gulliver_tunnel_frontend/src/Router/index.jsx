@@ -1,9 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import AuthLayout from "../Layouts/AuthLayout";
-import MainLayout from "../Layouts/MainLayout";
+import AuthLayout from "../layouts/AuthLayout";
+import MainLayout from "../layouts/MainLayout";
 
 import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
 import Home from "../pages/home/index";
 export default function Router() {
   return (
