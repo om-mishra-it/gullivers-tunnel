@@ -147,5 +147,6 @@ AUTH_USER_MODEL = "user.User"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'api_access.authentication.APIKeyAuthentication'
     ),
 }
