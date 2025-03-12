@@ -4,8 +4,9 @@ from django.contrib.auth import login, logout
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 
 from .models import User, OTP
 from .serializers import UserSerializer
@@ -14,8 +15,14 @@ from .serializers import UserSerializer
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class LoginViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     lookup_field = "email"
 
+    @permission_classes([AllowAny])
     @action(detail=False, methods=["POST"])
     def request_otp(self, request):
         """Generates and sends an OTP to the user"""
@@ -36,6 +43,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response({"message": "OTP sent successfully"}, status=status.HTTP_200_OK)
 
+    @permission_classes([AllowAny])
     @action(detail=False, methods=["POST"])
     def verify_otp(self, request):
         """Verifies the OTP and authenticates the user"""
@@ -77,6 +85,11 @@ class UserViewSet(viewsets.ModelViewSet):
         login(request, user)
 
         return Response({"message": "OTP verified successfully", "token": token.key}, status=status.HTTP_200_OK)
+
+
+class LogoutViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    lookup_field = "email"
 
     @action(detail=False, methods=["POST"])
     def logout(self, request):
