@@ -2,7 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "../Layouts/AuthLayout";
 import MainLayout from "../Layouts/MainLayout";
 
-import Login from "../pages/Auth/Login";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 import Home from "../pages/home/index";
 export default function Router() {
   // TODO: Implement check for token in localStorage
@@ -10,6 +11,7 @@ export default function Router() {
     <Routes>
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Route>
       <Route path="/home" element={<MainLayout />}>
         <Route index element={<Home />} />
