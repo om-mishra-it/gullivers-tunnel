@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.timezone import now
 from rest_framework import views, viewsets, status
-from rest_framework.decorators import action
+from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
@@ -55,6 +55,8 @@ class ShortenedURLViewSet(viewsets.ModelViewSet):
 class RedirectView(views.APIView):
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "redirect"
 
     def get(self, request, short_code):
         url_entry = get_object_or_404(ShortenedURL, short_code=short_code)

@@ -149,4 +149,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'api_access.authentication.APIKeyAuthentication'
     ),
+    'DEFAULT_THROTTLE_RATES': {
+        'redirect': '10/minute',
+    },
 }
