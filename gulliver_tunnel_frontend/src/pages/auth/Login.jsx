@@ -34,6 +34,7 @@ const Login = () => {
       const response = await verifyOtp(email, otp);
       localStorage.setItem("token", response.data.token);
       alert("Login successful!");
+      navigate("/home");
     } catch (err) {
       setError("Invalid OTP. Please try again.");
     }
