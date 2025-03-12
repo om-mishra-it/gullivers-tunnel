@@ -174,3 +174,5 @@ cython_debug/
 *.xml
 *.iml
 .idea
+
+node_modules/

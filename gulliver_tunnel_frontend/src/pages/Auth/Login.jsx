@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { requestOtp, verifyOtp } from "../api";
+import { requestOtp, verifyOtp } from "../../api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-w-screen min-h-screen p-4">
       <h1 className="text-3xl font-semibold mb-4">Login</h1>
       {step === 1 ? (
         <>
