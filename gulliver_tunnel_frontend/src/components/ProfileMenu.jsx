@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { ChevronDown, User } from "lucide-react";
 
 export default function ProfileMenu() {
     const [isOpen, setIsOpen] = useState(false);
-
+    const navigate = useNavigate();
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const handleLogout = async () => {
@@ -41,14 +42,14 @@ export default function ProfileMenu() {
 
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border">
-                    <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={toggleMenu}>
+                    <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => navigate('/home/profile')}>
                         Profile
                     </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={toggleMenu}>
                         API Key
                     </button>
-                    <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => window.open("/docs", "_blank")}>
-                        Docs
+                    <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => navigate('/home/documentation')}>
+                        Documentation
                     </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600" onClick={handleLogout}>
                         Logout

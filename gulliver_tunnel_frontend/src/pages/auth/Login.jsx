@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { useState } from "react";
 import { requestOtp, verifyOtp } from "../../api";
 
@@ -6,6 +7,7 @@ const Login = () => {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const emailHandler = (event) => {
     const emailValue = event.target.value;
@@ -33,8 +35,8 @@ const Login = () => {
     try {
       const response = await verifyOtp(email, otp);
       localStorage.setItem("token", response.data.token);
-      alert("Login successful!");
-      navigate("/home");
+//       alert("Login successful!");
+      navigate("/home")
     } catch (err) {
       setError("Invalid OTP. Please try again.");
     }
