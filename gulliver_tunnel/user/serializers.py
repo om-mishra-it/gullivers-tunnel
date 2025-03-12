@@ -6,7 +6,7 @@ from .models import User, OTP
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'date_of_birth', 'is_verified']
+        fields = ['id', 'email', 'date_of_birth', 'is_verified', 'last_login', 'created_at']
 
 
 # OTP Request Serializer
