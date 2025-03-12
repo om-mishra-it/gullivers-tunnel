@@ -6,7 +6,7 @@ export default function ProfileMenu() {
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
-   const handleLogout = async () => {
+    const handleLogout = async () => {
         const token = localStorage.getItem("token");
 
         try {
@@ -41,6 +41,9 @@ export default function ProfileMenu() {
 
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border">
+                    <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={toggleMenu}>
+                        Profile
+                    </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={toggleMenu}>
                         API Key
                     </button>
