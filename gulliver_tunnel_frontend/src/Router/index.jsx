@@ -6,12 +6,10 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Home from "../pages/home/index";
 export default function Router() {
-  // TODO: Implement check for token in localStorage
   return (
     <Routes>
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
       </Route>
       <Route path="/home" element={<MainLayout />}>
         <Route index element={<Home />} />
