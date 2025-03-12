@@ -68,8 +68,8 @@ export default function Navbar() {
                         <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => navigate('/home/profile')}>
                             Profile
                         </button>
-                        <button className="w-full text-left px-4 py-2 hover:bg-gray-100">
-                            API Key
+                        <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => navigate('/home/developer')}>
+                            Developer Access
                         </button>
                         <button className="w-full text-left px-4 py-2 hover:bg-gray-100" onClick={() => navigate('/home/documentation')}>
                             Documentation

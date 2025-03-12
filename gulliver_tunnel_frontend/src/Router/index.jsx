@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 
 import Login from "../pages/auth/Login";
 import Documentation from "../pages/home/documentation";
+import DeveloperAccess from "../pages/home/developerAccess";
 import Profile from "../pages/home/profile";
 import Home from "../pages/home";
 
@@ -17,6 +18,7 @@ export default function Router() {
         <Route index element={<Home />} />
         <Route path="documentation" element={<Documentation />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="developer" element={<DeveloperAccess />} />
       </Route>
 
       <Route path="*" element={<Navigate to='/home'/>} />
