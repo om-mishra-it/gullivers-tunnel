@@ -15,6 +15,25 @@ from .serializers import UserSerializer
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """Ensure users can only see their own profile."""
+        return User.objects.filter(id=self.request.user.id)
+
+    @action(detail=False, methods=["GET", "PUT"])
+    def profile(self, request):
+        """Get or update user profile."""
+        user = request.user
+        if request.method == "PUT":
+            serializer = self.get_serializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(user)
+        return Response(serializer.data)
 
 
 class LoginViewSet(viewsets.ModelViewSet):
