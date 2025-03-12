@@ -13,9 +13,8 @@ class APIKeyViewSet(viewsets.ViewSet):
     def generate_key(self, request):
         """Generate a new API key for the authenticated user."""
         user = request.user
-        api_key, created = APIKey.objects.get_or_create(user=user)
-        if not created:
-            return Response({"error": "API Key already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        APIKey.objects.filter(user=user).delete()
+        api_key = APIKey.objects.create(user=user)
         return Response({"api_key": api_key.key}, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=["GET"])
