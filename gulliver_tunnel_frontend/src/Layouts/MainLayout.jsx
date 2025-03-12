@@ -9,9 +9,7 @@ export default function MainLayout() {
         return (
             <main className='flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 sm:px-6'>
                 <ProfileMenu />
-                <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6">
-                    <Outlet />
-                </div>
+                <Outlet />
             </main>
         )
     }
