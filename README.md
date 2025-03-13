@@ -12,14 +12,14 @@ Gulliver Tunnel is a **URL shortener** tool built using **Django REST Framework 
 - ✅ **Redirection Handling** (Short links redirect seamlessly to original URLs)
 - ✅ **Expiration Management** (Set expiration times for links)
 - ✅ **Rate Limiting** (Prevent API abuse)
-- ✅ **Easter Eggs** (Hidden surprises for users exploring the platform)
 
 ---
 
 ## 🔹 Tech Stack
 - **Backend:** Django, Django REST Framework
-- **Database:** PostgreSQL (or SQLite for local development)
-- **Frontend:** React.js (Planned)
+- **Database:** PostgreSQL
+- **Frontend:** React.js
+- **Styling:** Tailwind CSS
 - **Authentication:** Token-based & API Key Authentication
 - **Deployment:** Docker & CI/CD (Planned)
 
@@ -29,7 +29,7 @@ Gulliver Tunnel is a **URL shortener** tool built using **Django REST Framework 
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/gulliver-tunnel.git
+git clone https://github.com/om-mishra-it/gulliver-tunnel.git
 cd gulliver-tunnel
 ```
 
@@ -57,13 +57,13 @@ Visit `http://127.0.0.1:8000/` to see the API running.
 ## 🔹 API Usage
 ### **1️⃣ Obtain an API Key**
 ```bash
-curl -X GET "http://127.0.0.1:8000/api/v1/api-key/" -H "Authorization: Token YOUR_AUTH_TOKEN"
+curl -X GET "http://127.0.0.1:8000/api/v1/api-access/get_key" -H "Api-Key: YOUR_API_KEY"
 ```
 
 ### **2️⃣ Shorten a URL**
 ```bash
-curl -X POST "http://127.0.0.1:8000/api/v1/shortenedurlviewset/manage_urls/" \
-     -H "X-API-KEY: YOUR_API_KEY" \
+curl -X POST "http://127.0.0.1:8000/api/v1/shortenedurlviewset/" \
+     -H "Api-Key: YOUR_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{"original_url": "https://example.com/some-page"}'
 ```
@@ -79,9 +79,9 @@ http://127.0.0.1:8000/xO7WNg
 ## 🔹 Roadmap & Future Plans 🚀
 - ✅ **Core URL Shortening API** (Done)
 - ✅ **User Authentication via OTP** (Done)
-- ⏳ **Frontend Dashboard with React.js** (In Progress)
+- ✅ **Frontend Dashboard with React.js** (Done)
+- ✅ **Public API Documentation** (Done)
 - ⏳ **Click Tracking & Analytics** (Planned)
-- ⏳ **Public API Documentation (Swagger)** (Planned)
 - ⏳ **Docker & Production Deployment** (Planned)
 - ⏳ **Dark Mode & UI Customization** (Planned)
 
