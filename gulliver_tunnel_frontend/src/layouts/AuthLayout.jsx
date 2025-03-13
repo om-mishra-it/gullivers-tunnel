@@ -12,7 +12,7 @@ export default function AuthLayout() {
                     muted
                     className="absolute inset-0 w-full h-full object-cover opacity-50"
                 >
-                    <source src="/gullivers_tunnel_bg" type="video/mp4" />
+                    <source src="/gullivers_tunnel_bg.mp4?url" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80">
