@@ -6,6 +6,10 @@ export default function Profile() {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
+        document.title = "Profile";
+    }, []);
+
+    useEffect(() => {
         const fetchProfile = async () => {
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/v1/userviewset/profile/", {

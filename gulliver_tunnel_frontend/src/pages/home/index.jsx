@@ -10,6 +10,10 @@ export default function Home() {
     fetchUrls();
   }, []);
 
+  useEffect(() => {
+        document.title = "Dashboard";
+    }, []);
+
   const fetchUrls = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/v1/shortenedurlviewset/", {

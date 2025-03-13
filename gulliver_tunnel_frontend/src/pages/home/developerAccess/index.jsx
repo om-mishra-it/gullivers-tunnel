@@ -13,6 +13,10 @@ export default function DeveloperAccess() {
     fetchApiKey();
   }, []);
 
+  useEffect(() => {
+        document.title = "Developer API Access";
+    }, []);
+
   const fetchApiKey = async () => {
     try {
       const response = await axios.get("http://127.0.0.1:8000/api/v1/api-access/get_key/", {
