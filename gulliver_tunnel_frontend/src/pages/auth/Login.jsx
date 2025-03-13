@@ -16,7 +16,7 @@ const Login = () => {
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
       setError("");
     } else {
-      setError("please provide valid email")
+      setError("Provide a valid email address")
     }
     setEmail(emailValue);
   }
@@ -45,7 +45,6 @@ const Login = () => {
   return (
     <div className="w-full max-w-sm space-y-6 p-6 bg-white rounded-2xl shadow-xl">
       <div className="flex flex-col items-center">
-        <h1 className="text-3xl font-semibold mb-4">Login</h1>
         {step === 1 ? (
           <>
             <input
@@ -53,14 +52,14 @@ const Login = () => {
               placeholder="Enter your email"
               value={email}
               onChange={emailHandler}
-              className="p-2 border rounded w-72 mb-2"
+              className="p-2 border rounded w-72 mb-5"
             />
             {error && <p className="text-red-500 mt-2">{error}</p>}
-            <button
-              onClick={handleRequestOtp}
-              className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-            >
+            <button onClick={handleRequestOtp}
+            class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
               Request OTP
+                </span>
             </button>
           </>
         ) : (
@@ -72,11 +71,11 @@ const Login = () => {
               onChange={(e) => setOtp(e.target.value)}
               className="p-2 border rounded w-72 mb-2"
             />
-            <button
-              onClick={handleVerifyOtp}
-              className="bg-green-500 text-white px-4 py-2 rounded mt-4"
-            >
-              Verify OTP
+            <button onClick={handleVerifyOtp}
+            class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                    Verify OTP
+                </span>
             </button>
           </>
         )}
